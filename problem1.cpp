@@ -3,46 +3,32 @@
 #include<unordered_set> 
 #define ll long long 
 #define mod 1000000007
+#define pb push_back
+#define fi first
+#define bg .begin();
+#define en .end();
+#define se second
+#define mp make_pair
 using namespace std;
 
-
-// recursive code 
-ll ans=0;
-void totalways(int n, int target){
-if(n==target){
-    ans++;
-    ans=ans%1000000007;
-    return ;
-}
-if(n>target){
-    return ;
-}
-for(int i=1; i<=6; i++){
-   totalways(n+i,target);
-}
-}
-
-
-// dp code
-
-void totalwaysdp(int target){
-vector<ll> dp(target+1,0);
-dp[0]=1;
-dp[1]=1;
-
-    for(int i=2; i<=target; i++){
-        for(int k=1; k<=6; k++){
-            if(i>=k){
-                 dp[i]=dp[i]%mod;
-              dp[i]+=dp[i-k]%mod;
-              
-            }
-        }
-    }
-    cout<<dp[target]%mod<<endl;
-}
-
-
+// int ans=0;
+// void fun(vector<int> &v, int i , int target,ll sum){
+// if(sum==target){
+//     ans++;
+//     return ;
+// }
+ 
+// if(sum>target){
+//     return ;
+// }
+// for(int i=0; i<v.size(); i++){
+// fun(v,i+1,target,sum+v[i]);
+// }
+ 
+ 
+// }
+ 
+ 
 int main( ){
     #ifndef ONLINE_JUDGE
     // for getting input 
@@ -50,18 +36,46 @@ int main( ){
     // for writing output
     freopen("output1.txt","w",stdout);
 #endif
-int n;
-cin>>n;
+   
+   int n;
+   cin>> n;
+int target;
+cin>>target;
+vector<int> v(n);
+for(int i=0; i<n; i++){
+    cin>>v[i];
+}
+// ll sum=0;
+// fun(v,0,target,sum);
+// cout<<ans<<endl;
+
+
+
+
+sort(v.begin(),v.end());
+vector<int> dp(target+1);
+dp[0]=1;
+
+for(int i=1; i<target+1; i++){
+    for(int j=0; j<n; j++){
+if(v[j]<=i){
+
+dp[i]=(dp[i]%mod+dp[i-v[j]]%mod)%mod;
+
+    }else{
+        break;
+    }
+}
+ 
+}
+ 
+cout<<dp[target]<<endl;
 
  
-totalwaysdp(n);
-
-totalways(0,n);
-cout<<ans<<endl;
-
-
-
-
-
-
-}
+ }
+ 
+ 
+ 
+ 
+ 
+ 
