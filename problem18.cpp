@@ -51,7 +51,7 @@ int dp[size+1][target+1];
 		dp[i][0]=1;
 	}
 	for(int i=1; i<n+1; i++){
-		for(int j=0; j<target+1; j++){
+		for(int j=1; j<target+1; j++){
 			if(v[i-1]<=j){
 				dp[i][j]=dp[i-1][j-v[i-1]]+dp[i-1][j];
 			}else{
